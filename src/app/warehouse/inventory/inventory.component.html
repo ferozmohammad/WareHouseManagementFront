@@ -1,0 +1,92 @@
+
+<table [ngStyle]="{width:'100%'}">
+    <tr>
+        <td>
+            <fieldset>
+                <legend>Product Stock Summery</legend>
+                <table [ngStyle]="{width:'100%'}" style="text-align:left">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Available Stock</th>
+                        </tr>
+                    </thead>
+            
+                    <tbody>
+                        <tr *ngFor="let x of productSummery">
+                            <td>{{x.name}}</td>
+                            <td>{{x.category}}</td>
+                            <td>{{x.price}}</td>
+                            <td>{{x.stock}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            <hr />
+            <fieldset>
+                <legend>Update Warehouse Stock</legend>
+                <select [(ngModel)]="selectedwarehouse" (change)="handleWarehouse($event)">
+                    <option value="">--select warehouse--</option>
+                    <option *ngFor="let x of warehouse" value="{{x.id}}" >{{x.name}} - {{x.location}}
+                    </option>
+                </select>
+                <select [(ngModel)]="selectedproduct" (change)="handleProduct($event)">
+                    <option value="">--select product--</option>
+                    <option *ngFor="let x of products" value="{{x.id}}" >{{x.name}} - {{getCategoryName(x)}} - {{x.price}}</option>
+                </select>
+            
+                <input type="number" [(ngModel)]="updatedstock">
+                <button (click)="handleUpdate()">Update</button>
+            </fieldset>
+
+        </td>
+        <td>
+
+            <fieldset>
+                <legend>Filter</legend>
+<select [(ngModel)]="filterwarehouse" (change)="handleFilterWarehouse($event)">
+    <option value="">--all warehouse--</option>
+    <option *ngFor="let x of warehouse" value="{{x.id}}">{{x.name}}
+    </option>
+</select>
+<select [(ngModel)]="filtercategory" (change)="handleFilterCategory($event)">
+    <option value="">--all category--</option>
+    <option *ngFor="let x of categories" value="{{x.id}}">{{x.name}}
+    </option>
+</select>
+
+            </fieldset>
+<fieldset>
+    <legend>Warehouse Inventory</legend>
+    <table [ngStyle]="{width:'100%'}" style="text-align:left">
+        <thead>
+            <tr>
+                <th>Warehouse Name</th>
+                <th>Location</th>
+                <th>Manager</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let x of filteredInventories">
+                <td>{{getWarehouseDetails(x)?.name}}</td>
+                <td>{{getWarehouseDetails(x)?.location}}</td>
+                <td>{{getWarehouseDetails(x)?.managerId}}</td>
+                <td>{{getProductName(x)?.name}}</td>
+                <td>{{getCategoryName(getProductName(x))}}</td>
+                <td>{{x.stock}}</td>
+            </tr>
+        </tbody>
+    </table>
+</fieldset>
+
+
+
+        </td>
+    </tr>
+</table>
